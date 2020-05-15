@@ -21,7 +21,7 @@ namespace API.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]AuthenticateModel authenticateModel)
         {
-            var user = _service.Authenticate(authenticateModel);
+            var user = _service.AuthenticateUser(authenticateModel);
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
             return Ok(user);
@@ -32,7 +32,7 @@ namespace API.Controllers
         [HttpPost("register")]
         public IActionResult Register([FromBody]UserModel userModel)
         {
-            if (_service.Register(userModel))
+            if (_service.RegisterUser(userModel))
             {
                 return Ok();
             }

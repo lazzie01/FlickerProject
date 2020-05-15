@@ -14,17 +14,17 @@ namespace API.Services
 {
     public interface IService
     {
-        UserModel Authenticate(AuthenticateModel authenticateModel);
+        UserModel AuthenticateUser(AuthenticateModel authenticateModel);
 
-        bool Register(UserModel userModel);
+        bool RegisterUser(UserModel userModel);
 
-        List<LocationModel> Locations(int id);
+        List<LocationModel> GetLocations(int id);
 
         void AddLocation(SearchModel searchModel, string folderPath);
 
-        List<LandmarkModel> Landmarks(int id);
+        List<LandmarkModel> GetLocationLandmarks(int id);
 
-        LandmarkModel Landmark(int id);
+        LandmarkModel GetLandmark(int id);
 
         void DeleteLocation(int userId, int locationId);
 
@@ -33,14 +33,13 @@ namespace API.Services
     public class Service : IService
     {
         private readonly AppSettings _appSettings;
-        //private readonly string _imagesFilePath;
+       
         public Service(IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
-          //  _imagesFilePath = imagesFilePath;
         }
 
-        public UserModel Authenticate(AuthenticateModel authenticateModel)
+        public UserModel AuthenticateUser(AuthenticateModel authenticateModel)
         {
             using (UserRepository repo = new UserRepository())
             {
@@ -70,7 +69,7 @@ namespace API.Services
             }
         }
 
-        public bool Register(UserModel userModel)
+        public bool RegisterUser(UserModel userModel)
         {
             using (UserRepository repo = new UserRepository())
             {
@@ -83,7 +82,7 @@ namespace API.Services
             }
         }
 
-        public List<LocationModel> Locations(int id)
+        public List<LocationModel> GetLocations(int id)
         {
             using (UserRepository repo = new UserRepository())
             {
@@ -103,7 +102,7 @@ namespace API.Services
             }
         }
 
-        public List<LandmarkModel> Landmarks(int id)
+        public List<LandmarkModel> GetLocationLandmarks(int id)
         {
             using (LandmarkRepository repo = new LandmarkRepository())
             {        
@@ -111,7 +110,7 @@ namespace API.Services
             }
         }
 
-        public LandmarkModel Landmark(int id)
+        public LandmarkModel GetLandmark(int id)
         {
             using (LandmarkRepository repo = new LandmarkRepository())
             {

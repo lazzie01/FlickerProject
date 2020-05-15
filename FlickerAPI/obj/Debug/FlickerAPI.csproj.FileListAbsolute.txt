@@ -79,7 +79,6 @@ C:\Users\USER\source\repos\FlickerProject\FlickerAPI\bin\System.Web.WebPages.Dep
 C:\Users\USER\source\repos\FlickerProject\FlickerAPI\bin\System.Web.WebPages.Razor.xml
 C:\Users\USER\source\repos\FlickerProject\FlickerAPI\bin\Antlr3.Runtime.pdb
 C:\Users\USER\source\repos\FlickerProject\FlickerAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\USER\source\repos\FlickerProject\FlickerAPI\obj\Debug\FlickerAPI.csprojAssemblyReference.cache
 C:\Users\USER\source\repos\FlickerProject\FlickerAPI\obj\Debug\FlickerAPI.csproj.CoreCompileInputs.cache
 C:\Users\USER\source\repos\FlickerProject\FlickerAPI\obj\Debug\FlickerAPI.csproj.CopyComplete
 C:\Users\USER\source\repos\FlickerProject\FlickerAPI\obj\Debug\FlickerAPI.dll

@@ -27,7 +27,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var data = _service.Locations(id);
+            var data = _service.GetLocations(id);
             return Ok(data);
         }
 
@@ -42,7 +42,7 @@ namespace API.Controllers
         [HttpGet("{id}/landmarks")] 
         public IActionResult Landmarks(int id)
         {
-            var data = _service.Landmarks(id);
+            var data = _service.GetLocationLandmarks(id);
             return Ok(data);
         }
 

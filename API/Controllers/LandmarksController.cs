@@ -20,7 +20,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var data = _service.Landmark(id);
+            var data = _service.GetLandmark(id);
             return Ok(data);
         }
 

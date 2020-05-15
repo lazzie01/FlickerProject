@@ -58,9 +58,6 @@ namespace API
 
             // configure DI for application services
             services.AddScoped<IService, Service>();
-
-            //services.AddDbContext<ApplicationDbContext>(item =>
-            //        item.UseSqlServer(Configuration.GetConnectionString("dbConn")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
