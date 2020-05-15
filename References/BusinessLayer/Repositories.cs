@@ -108,6 +108,14 @@ namespace BusinessLayer
             }
         }
 
+        public void Delete(int userId, int locationId)
+        {
+            var location = DB.UserLocations.FirstOrDefault(u => u.UserId == userId && u.LocationId == locationId);
+            if(location!=null)
+            DB.UserLocations.Remove(location);
+            DB.SaveChanges();
+        }
+
     }
 
     public class LocationRepository : BaseRepository

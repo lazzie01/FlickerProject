@@ -26,12 +26,18 @@ export class HomeComponent implements OnInit {
         this.loadAllUserLocations();
     }
 
-    exploreLocation(id:number,name:string):void{
+    explore(id:number,name:string):void{
          this.router.navigate(['/location',id],
          {
             queryParams: { 'name' : name }
          });
        }
+
+       delete(id:number):void{
+       this.userService.deleteLocation(id,this.currentUser.id)
+       .pipe(first())
+       .subscribe(data => this.loadAllUserLocations());
+      }
 
     private loadAllUserLocations() {
         this.userService.locations(this.currentUser.id)

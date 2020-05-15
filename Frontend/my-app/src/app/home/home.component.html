@@ -10,14 +10,18 @@
             <thead>
                 <tr>
                     <th>Location</th>
-                    <th>Action</th>
+                    <th>Explore</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
         
             <tbody *ngFor="let location of locations | searchFilter:searchTerm">
                 <tr>
                     <td>{{location.name }}</td>
-                    <td> <button type="button" class="btn btn-sm btn-outline-dark" (click)="exploreLocation(location.id,location.name)">Explore</button></td>
+                    <td> <button type="button" class="btn btn-sm btn-outline-dark" (click)="explore(location.id,location.name)">Explore</button></td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-outline-danger" (click)="delete(location.id)">Delete</button>
+                    </td>
                 </tr>
             </tbody>
         </table>

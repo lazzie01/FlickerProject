@@ -72,12 +72,28 @@ namespace API.Controllers
             return Ok();
         }
 
-        [AllowAnonymous]
-        [HttpGet("landmarks/{id}")]
+       // [AllowAnonymous]
+        [HttpGet("location-landmarks/{id}")]//landmarks of specific location 
         public IActionResult Landmarks(int id)
         {         
             var data = _service.Landmarks(id);
             return Ok(data);
+        }
+
+        //[AllowAnonymous]
+        [HttpGet("landmarks/{id}")]//one landmark
+        public IActionResult Landmark(int id)
+        {
+            var data = _service.Landmark(id);
+            return Ok(data);
+        }
+
+        [AllowAnonymous]
+        [HttpDelete("delete/{locationId}")]
+        public IActionResult Delete(int locationId,int userId)
+        {
+            _service.DeleteLocation(userId, locationId);
+            return Ok();
         }
 
     }

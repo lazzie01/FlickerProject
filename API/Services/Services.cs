@@ -29,6 +29,10 @@ namespace API.Services
 
         List<LandmarkModel> Landmarks(int id);
 
+        LandmarkModel Landmark(int id);
+
+        void DeleteLocation(int userId, int locationId);
+
     }
 
     public class Service : IService
@@ -109,6 +113,22 @@ namespace API.Services
             using (LandmarkRepository repo = new LandmarkRepository())
             {        
                 return repo.List(id).Select(l => new LandmarkModel(l)).ToList();
+            }
+        }
+
+        public LandmarkModel Landmark(int id)
+        {
+            using (LandmarkRepository repo = new LandmarkRepository())
+            {
+                return new LandmarkModel(repo.Read(id));
+            }
+        }
+
+        public void DeleteLocation(int userId, int locationId)
+        {
+            using(UserLocationRepository repo = new UserLocationRepository())
+            {
+                repo.Delete(userId, locationId);
             }
         }
     }

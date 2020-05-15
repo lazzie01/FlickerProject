@@ -25,13 +25,20 @@ export class LocationComponent implements OnInit {
   }
 
   private loadAllLocationLandmarks(id:number) {
-    this.userService.landmarks(id)
+    this.userService.locationLandmarks(id)
         .pipe(first())
         .subscribe(landmarks => this.landmarks = landmarks);
 }
 
 backToHome():void{
   this.router.navigate(['/home']);
+}
+
+navLandmark(id:number):void{
+  this.router.navigate(['/landmark',id],
+         {
+            queryParams: { 'locationId' : this.id, 'locationName' : this.name }
+         });
 }
 
 }

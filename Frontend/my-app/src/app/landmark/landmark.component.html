@@ -1,1 +1,29 @@
-<p>landmark works!</p>
+<br/>
+<button type="button" class="btn btn-sm btn-dark" (click)="navLocation()">Back</button>
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+               <div class="col-md-12">
+                <b>Date:</b> {{landmark.dateUploaded | date:'mediumDate'}}
+               </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <b>Title:</b> {{landmark.title}}
+            </div>
+     </div>
+     <div class="row">
+        <div class="col-md-12">
+            <b>Description:</b> {{landmark.description}}
+        </div>
+     </div>
+     <div class="row">
+        <div class="col-md-12">
+        <img class="logo" src="assets/{{landmark.fThumbnailUrl}}"  alt="Card image cap">
+        </div>
+     </div>
+      </div>   
+      <div class="col-md-6">
+        <img class="logo" src="assets/{{landmark.fLargeUrl}}" width="65%" height="65%" alt="Card image cap">
+    </div>  
+</div>

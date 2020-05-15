@@ -13,6 +13,10 @@ export class UserService {
         return this.http.get<Location[]>(`${this.apiUrl}/users/${id}/locations`);
     }
 
+    locationLandmarks(id:number) {
+        return this.http.get<Landmark[]>(`${this.apiUrl}/users/location-landmarks/${id}`);
+    }
+
     landmarks(id:number) {
         return this.http.get<Landmark[]>(`${this.apiUrl}/users/landmarks/${id}`);
     }
@@ -25,7 +29,7 @@ export class UserService {
         return this.http.post(`${this.apiUrl}/users/${search.id}/locations`, search);
     }
 
-    delete(id: number) {
-        return this.http.delete(`${this.apiUrl}/users/${id}`);
+    deleteLocation(locationId: number,userId: number) {
+        return this.http.delete(`${this.apiUrl}/users/delete/${locationId}?userId=${userId}`);
     }
 }
