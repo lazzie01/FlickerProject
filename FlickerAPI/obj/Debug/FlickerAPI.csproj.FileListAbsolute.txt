@@ -83,3 +83,4 @@ C:\Users\USER\source\repos\FlickerProject\FlickerAPI\obj\Debug\FlickerAPI.csproj
 C:\Users\USER\source\repos\FlickerProject\FlickerAPI\obj\Debug\FlickerAPI.csproj.CopyComplete
 C:\Users\USER\source\repos\FlickerProject\FlickerAPI\obj\Debug\FlickerAPI.dll
 C:\Users\USER\source\repos\FlickerProject\FlickerAPI\obj\Debug\FlickerAPI.pdb
+C:\Users\USER\source\repos\FlickerProject\FlickerAPI\obj\Debug\FlickerAPI.csprojAssemblyReference.cache

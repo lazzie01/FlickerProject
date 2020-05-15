@@ -20,8 +20,7 @@ namespace API.Controllers
         {
             _service = userService;
             _webHostEnvironment = webHostEnvironment;
-            string rootPath = Path.GetFullPath(Path.Combine(_webHostEnvironment.ContentRootPath, @"..\"));
-            _imagesPath = rootPath + @"Frontend\my-app\src\assets\";
+            _imagesPath = _webHostEnvironment.ContentRootPath+@"\Images\";
         }
 
         [HttpGet("{id}")]
@@ -42,7 +41,7 @@ namespace API.Controllers
         [HttpGet("{id}/landmarks")] 
         public IActionResult Landmarks(int id)
         {
-            var data = _service.GetLocationLandmarks(id);
+            var data = _service.GetLocationLandmarks(id, _imagesPath);
             return Ok(data);
         }
 

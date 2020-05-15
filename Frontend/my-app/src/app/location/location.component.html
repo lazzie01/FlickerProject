@@ -1,13 +1,9 @@
 <h3>Landmarks in {{name}}</h3>
 <button type="button" class="btn btn-sm btn-dark" (click)="backToHome()">Back</button>
-<p *ngIf="!landmarks">
-    </p>
-    <div *ngIf="landmarks" class="form-group">
-    </div>
     <div class="row">
         <div class="col-md-3" *ngFor="let landmark of landmarks">
             <div class="card mb-4 box-shadow">
-              <img class="logo" src="assets/{{landmark.fLargeUrl}}"  height="150px" alt="Card image cap">
+              <img class="logo" [src]="landmark.fLargeUrl | safe:'resourceUrl'"  height="150px" alt="Card image cap">
               <div class="card-header">
                     {{ (landmark.title.length>30)? (landmark.title | slice:0:30)+'..':(landmark.title) }}
               </div>

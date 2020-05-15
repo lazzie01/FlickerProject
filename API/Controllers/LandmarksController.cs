@@ -11,16 +11,18 @@ namespace API.Controllers
     public class LandmarksController : ControllerBase
     {
         private IService _service;
-      
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly string _imagesPath;
         public LandmarksController(IService userService, IWebHostEnvironment webHostEnvironment)
         {
             _service = userService;
+            _imagesPath = _webHostEnvironment.ContentRootPath + @"\Images\";
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var data = _service.GetLandmark(id);
+            var data = _service.GetLandmark(id, _imagesPath);
             return Ok(data);
         }
 

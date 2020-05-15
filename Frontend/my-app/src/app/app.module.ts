@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AlertComponent } from './components';
-import { SearchFilterPipe } from './models/filters';
+import { SearchFilterPipe, SafePipe } from './models/filters';
 import { LocationComponent } from './location/location.component';
 import { LandmarkComponent } from './landmark/landmark.component';
 import { LocationListComponent } from './home';
@@ -30,6 +30,7 @@ import { LocationListComponent } from './home';
         RegisterComponent,
         AlertComponent,
         SearchFilterPipe,
+        SafePipe,
         LocationComponent,
         LandmarkComponent
     ],

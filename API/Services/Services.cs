@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -22,9 +23,9 @@ namespace API.Services
 
         void AddLocation(SearchModel searchModel, string folderPath);
 
-        List<LandmarkModel> GetLocationLandmarks(int id);
+        List<LandmarkModel> GetLocationLandmarks(int id, string imageFolderPath);
 
-        LandmarkModel GetLandmark(int id);
+        LandmarkModel GetLandmark(int id, string imageFolderPath);
 
         void DeleteLocation(int userId, int locationId);
 
@@ -102,18 +103,25 @@ namespace API.Services
             }
         }
 
-        public List<LandmarkModel> GetLocationLandmarks(int id)
-        {
-            using (LandmarkRepository repo = new LandmarkRepository())
-            {        
-                return repo.List(id).Select(l => new LandmarkModel(l)).ToList();
-            }
-        }
-
-        public LandmarkModel GetLandmark(int id)
+        public List<LandmarkModel> GetLocationLandmarks(int id, string imageFolderPath)
         {
             using (LandmarkRepository repo = new LandmarkRepository())
             {
+                var data = repo.List(id);
+                data.ForEach(l =>
+                {
+                    l.FLargeUrl = "data:image/jpeg;base64, " + Convert.ToBase64String(File.ReadAllBytes(imageFolderPath + l.FLargeUrl));
+                    l.FThumbnailUrl = "data:image/jpeg;base64, " + Convert.ToBase64String(File.ReadAllBytes(imageFolderPath + l.FThumbnailUrl));
+                });
+                return data.Select(l => new LandmarkModel(l)).ToList();
+            }
+        }
+
+        public LandmarkModel GetLandmark(int id, string imageFolderPath)
+        {
+            using (LandmarkRepository repo = new LandmarkRepository())
+            {
+                //imageFolderPath
                 return new LandmarkModel(repo.Read(id));
             }
         }
