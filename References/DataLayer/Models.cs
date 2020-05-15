@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer
 {
-
     public partial class Landmark
     {
         [Key]

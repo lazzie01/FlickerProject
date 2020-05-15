@@ -1,9 +1,6 @@
-﻿//using API.Entities;
-using API.Helpers;
+﻿using API.Helpers;
 using API.Models;
 using BusinessLayer;
-using DataLayer;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -12,8 +9,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Schema;
 
 namespace API.Services
 {
