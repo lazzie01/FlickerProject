@@ -1,4 +1,4 @@
-<h3>Landmarks in {{name}}</h3>
+<h3>Landmarks in {{name}}</h3> 
 <button type="button" class="btn btn-sm btn-dark" (click)="backToHome()">Back</button>
     <div class="row">
         <div class="col-md-3" *ngFor="let landmark of landmarks">
@@ -21,4 +21,8 @@
             </div>
           </div>   
     </div>
-    <button type="button" class="btn btn-sm btn-dark" (click)="backToHome()">Back</button>
+    <p *ngIf="!landmarks">
+      <br/>
+      Loading please wait...
+    </p>
+  <button type="button" class="btn btn-sm btn-dark" (click)="backToHome()">Back</button>
