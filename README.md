@@ -32,18 +32,21 @@ it uses Flickr (https://www.flickr.com/).
 # Debugging The Application
 
 -> Step 1: Run the backend
-    Open the Backend>System>FlickerProject.sln using Visual Studio
+
+    Open the FlickerProject\FlickerProject.sln using Visual Studio
     
-    Open the Web.config project in System Project and change the default connection string to point to your server.
-    
+    Open FlickerProject\References\DataLayer\ApplicationDbContext.cs change the connection string in OnConfiguring method
+    to point to your database server.
+   
     Run the application
 
 -> Step 2: Run the frontend
-    Open the FlickerProject-> Frontend-> my-app using Visual Studio Code and execute ng serve command
+
+    Open the FlickerProject\Frontend\my-app using Visual Studio Code and execute ng serve command
     
-    The Frontend application will open in the default web browser, please wait for the application to create a database and seed it with inital data.
+    The Frontend application will open in the default web browser
     
-    The application will initially list two contact information of Lazarus Munetsi and Jaco Kotze
+    Register as a new user
     
     Test the application by performing all the CRUD and search operations 
 
