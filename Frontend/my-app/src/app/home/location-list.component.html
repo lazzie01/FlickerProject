@@ -30,8 +30,14 @@
 </div>
 
 <jw-modal id="custom-modal-1">
-    <h4>Search Location</h4>   
-    <p><input type="text" class="form-control" placeholder="Location" style="width:122px;" [(ngModel)]="flickerSearchTerm"/>
+    <h5>Search Location</h5> 
+    <span class="text-success">{{delayMessage}}</span>
+    <p>
+        <input type="text" class="form-control" placeholder="Location" style="width:122px;" [(ngModel)]="flickerSearchTerm"/>
     </p>
-    <button type="button" class="btn btn-sm btn-dark" (click)="closeModal('custom-modal-1');">Search</button>
+    <button type="button" 
+    class="btn btn-sm btn-dark" 
+    (click)="closeModal('custom-modal-1');"
+    [disabled]="searchDisabled"
+    >Search</button>
 </jw-modal>

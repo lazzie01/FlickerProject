@@ -12,6 +12,8 @@ export class LocationListComponent implements OnInit {
     locations = [];
     searchTerm:string;
     flickerSearchTerm: string;
+    delayMessage:string;
+    searchDisabled:boolean=false;
     constructor(
         private authenticationService: AuthenticationService,
         private userService: UserService,
@@ -44,20 +46,21 @@ export class LocationListComponent implements OnInit {
             .subscribe(locations => this.locations = locations);
     }
 
-    searchLocations(search: Search) {
-        this.userService.searchLocations(search)
-            .pipe(first())
-            .subscribe(() => this.loadLocations());
-    }
-
-
     openModal(id: string) {
         this.modalService.open(id);
     }
 
     closeModal(id: string) {
+        this.delayMessage = "Searching, please wait...."
+        this.searchDisabled = true;
         let search:Search = { id:this.currentUser.id, query:this.flickerSearchTerm };
-        this.searchLocations(search);
-        this.modalService.close(id);
+        this.userService.searchLocations(search)
+        .pipe(first())
+        .subscribe(() => {
+            this.loadLocations();
+            this.modalService.close(id);
+            this.delayMessage = "";
+            this.searchDisabled = false;
+        });
     }
 }
