@@ -52,7 +52,7 @@ namespace API.Controllers
             }
             else
             {
-                return Ok("Username already taken");
+                return Conflict(new { message = "Username already taken" });
             }
         }
 

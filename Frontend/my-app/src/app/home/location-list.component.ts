@@ -6,8 +6,8 @@ import { UserService, AuthenticationService } from '../services';
 import { Router } from '@angular/router';
 import { ModalService } from '../_modal';
 
-@Component({ templateUrl: 'home.component.html' })
-export class HomeComponent implements OnInit {
+@Component({ templateUrl: 'location-list.component.html' })
+export class LocationListComponent implements OnInit {
     currentUser: User;
     locations = [];
     statusMessage:string = "Loading please wait...";
