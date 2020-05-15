@@ -32,14 +32,14 @@ it uses Flickr (https://www.flickr.com/).
 # Debugging The Application
 
 -> Step 1: Run the backend
-    Open the Backend>System>System.sln using Visual Studio
+    Open the Backend>System>FlickerProject.sln using Visual Studio
     
     Open the Web.config project in System Project and change the default connection string to point to your server.
     
     Run the application
 
 -> Step 2: Run the frontend
-    Open the Frontend>AngularApp using Visual Studio Code and execute ng serve command
+    Open the FlickerProject-> Frontend-> my-app using Visual Studio Code and execute ng serve command
     
     The Frontend application will open in the default web browser, please wait for the application to create a database and seed it with inital data.
     
