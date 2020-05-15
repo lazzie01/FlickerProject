@@ -1,0 +1,37 @@
+<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
+  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/">Home</a>
+      </li>
+    </ul>    
+  </div>
+<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Hi {{currentUser.username}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="logout()">Logout</a>
+        </li>
+    </ul>
+</div>
+</nav>
+
+<!-- main app container -->
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-sm-12">
+          <alert></alert>
+          <router-outlet></router-outlet>
+      </div>
+  </div>
+</div>
+
+<!-- credits -->
+<div class="text-center">
+  <p>
+      <a href="https://www.linkedin.com/in/lazzie-munetsi" target="_top">Flicker Application</a>
+  </p>
+</div>

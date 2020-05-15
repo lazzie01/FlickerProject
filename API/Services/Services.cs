@@ -1,0 +1,115 @@
+﻿//using API.Entities;
+using API.Helpers;
+using API.Models;
+using BusinessLayer;
+using DataLayer;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Schema;
+
+namespace API.Services
+{
+    public interface IService
+    {
+        UserModel Authenticate(AuthenticateModel authenticateModel);
+
+        bool Register(UserModel userModel);
+
+        List<LocationModel> Locations(int id);
+
+        void AddLocation(SearchModel searchModel, string folderPath);
+
+        List<LandmarkModel> Landmarks(int id);
+
+    }
+
+    public class Service : IService
+    {
+        private readonly AppSettings _appSettings;
+        //private readonly string _imagesFilePath;
+        public Service(IOptions<AppSettings> appSettings)
+        {
+            _appSettings = appSettings.Value;
+          //  _imagesFilePath = imagesFilePath;
+        }
+
+        public UserModel Authenticate(AuthenticateModel authenticateModel)
+        {
+            using (UserRepository repo = new UserRepository())
+            {
+                var user = repo.Find(authenticateModel.Username, authenticateModel.Password);
+                // return null if user not found
+                if (user == null)
+                    return null;
+
+                // authentication successful so generate jwt token
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                    }),
+                    Expires = DateTime.UtcNow.AddDays(7),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+                UserModel userModel = new UserModel(user);
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                userModel.Token = tokenHandler.WriteToken(token);
+                userModel.Password = null;
+                return userModel;
+
+            }
+        }
+
+        public bool Register(UserModel userModel)
+        {
+            using (UserRepository repo = new UserRepository())
+            {
+                if (repo.Find(userModel.Username) == null)
+                {
+                    repo.Create(userModel.ToModel());
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public List<LocationModel> Locations(int id)
+        {
+            using (UserRepository repo = new UserRepository())
+            {
+                var data = repo.Locations(id);
+                if(data==null)
+                    return null;
+                return data.Select(l => new LocationModel(l)).ToList();
+            }
+        }
+
+        public void AddLocation(SearchModel searchModel, string folderPath)
+        {
+            using (LocationRepository repo = new LocationRepository())
+            {    
+                if(!string.IsNullOrEmpty(searchModel.Query))
+                repo.Create(searchModel.Id, searchModel.Query, folderPath);
+            }
+        }
+
+        public List<LandmarkModel> Landmarks(int id)
+        {
+            using (LandmarkRepository repo = new LandmarkRepository())
+            {        
+                return repo.List(id).Select(l => new LandmarkModel(l)).ToList();
+            }
+        }
+    }
+}
