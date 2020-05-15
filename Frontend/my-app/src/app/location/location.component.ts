@@ -18,13 +18,14 @@ export class LocationComponent implements OnInit {
   landmarks:any[];
   name: string;
   id:number;
+
   ngOnInit(): void {
     this.id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
     this.activatedRoute.queryParams.subscribe(p => this.name = p.name);
-    this.loadAllLocationLandmarks(this.id);
+    this.loadLandmarks(this.id);
   }
 
-  private loadAllLocationLandmarks(id:number) {
+   loadLandmarks(id:number) {
     this.userService.locationLandmarks(id)
         .pipe(first())
         .subscribe(landmarks => this.landmarks = landmarks);

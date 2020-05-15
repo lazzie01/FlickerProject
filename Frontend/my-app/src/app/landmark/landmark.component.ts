@@ -16,18 +16,19 @@ export class LandmarkComponent implements OnInit {
     landmark:any;
     locationId:number;
     locationName:string;
+
   ngOnInit(): void {
     let id:number = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
     this.loadLandmark(id);
   }
 
-  private loadLandmark(id:number) {
+  loadLandmark(id:number) {
     this.userService.landmarks(id)
         .pipe(first())
         .subscribe(landmark => this.landmark = landmark);
    }
 
-   public navLocation(){
+  navLocation(){
     this.activatedRoute.queryParams.subscribe(p => this.locationId = p.locationId);
     this.activatedRoute.queryParams.subscribe(p => this.locationName = p.locationName);
     this.router.navigate(['/location',this.locationId],

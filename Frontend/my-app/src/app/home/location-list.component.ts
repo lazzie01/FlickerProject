@@ -10,7 +10,6 @@ import { ModalService } from '../_modal';
 export class LocationListComponent implements OnInit {
     currentUser: User;
     locations = [];
-    statusMessage:string = "Loading please wait...";
     searchTerm:string;
     flickerSearchTerm: string;
     constructor(
@@ -23,7 +22,7 @@ export class LocationListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loadAllUserLocations();
+        this.loadLocations();
     }
 
     explore(id:number,name:string):void{
@@ -33,22 +32,22 @@ export class LocationListComponent implements OnInit {
          });
        }
 
-       delete(id:number):void{
+    delete(id:number):void{
        this.userService.deleteLocation(id,this.currentUser.id)
        .pipe(first())
-       .subscribe(data => this.loadAllUserLocations());
+       .subscribe(data => this.loadLocations());
       }
 
-    private loadAllUserLocations() {
+    loadLocations() {
         this.userService.locations(this.currentUser.id)
             .pipe(first())
             .subscribe(locations => this.locations = locations);
     }
 
-    private searchAllUserLocations(search: Search) {
+    searchLocations(search: Search) {
         this.userService.searchLocations(search)
             .pipe(first())
-            .subscribe(() => this.loadAllUserLocations());
+            .subscribe(() => this.loadLocations());
     }
 
 
@@ -58,7 +57,7 @@ export class LocationListComponent implements OnInit {
 
     closeModal(id: string) {
         let search:Search = { id:this.currentUser.id, query:this.flickerSearchTerm };
-        this.searchAllUserLocations(search);
+        this.searchLocations(search);
         this.modalService.close(id);
     }
 }

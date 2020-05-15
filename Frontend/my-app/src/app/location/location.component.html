@@ -1,10 +1,8 @@
 <h3>Landmarks in {{name}}</h3>
 <button type="button" class="btn btn-sm btn-dark" (click)="backToHome()">Back</button>
 <p *ngIf="!landmarks">
-    <!-- {{statusMessage}} -->
     </p>
     <div *ngIf="landmarks" class="form-group">
-        <!-- <input type="text" class="form-control" placeholder="Search By First Name" style="width:300px;" [(ngModel)]="searchTerm"/> -->
     </div>
     <div class="row">
         <div class="col-md-3" *ngFor="let landmark of landmarks">
