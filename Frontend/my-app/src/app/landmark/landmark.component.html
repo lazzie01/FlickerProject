@@ -20,11 +20,11 @@
      </div>
      <div class="row">
         <div class="col-md-12">
-        <img class="logo" src="assets/{{landmark.fThumbnailUrl}}"  alt="Card image cap">
+        <img class="logo" [src]="landmark.fThumbnailUrl | safe:'resourceUrl'"  alt="Card image cap">
         </div>
      </div>
       </div>   
       <div class="col-md-6">
-        <img class="logo" src="assets/{{landmark.fLargeUrl}}" width="65%" height="65%" alt="Card image cap">
+        <img class="logo" [src]="landmark.fLargeUrl | safe:'resourceUrl'" width="65%" height="65%" alt="Card image cap">
     </div>  
 </div>

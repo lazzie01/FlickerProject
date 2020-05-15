@@ -16,6 +16,7 @@ namespace API.Controllers
         public LandmarksController(IService userService, IWebHostEnvironment webHostEnvironment)
         {
             _service = userService;
+            _webHostEnvironment = webHostEnvironment;
             _imagesPath = _webHostEnvironment.ContentRootPath + @"\Images\";
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 
 namespace BusinessLayer
@@ -23,6 +24,24 @@ namespace BusinessLayer
         {
             int start = s1.Length - 5;
             return GenerateTenIntegerStrings() + s1.Substring(start);
+        }
+    }
+
+    public static class Helper
+    {
+        public static string ToBase64String(string folderPath, string fileName)
+        {
+            string result = null;
+            try
+            {
+                string s1 = Convert.ToBase64String(File.ReadAllBytes(folderPath + fileName));
+                result = "data:image/jpeg;base64, " + s1;
+            }
+            catch(Exception)
+            {
+
+            }
+            return result;
         }
     }
 }

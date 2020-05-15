@@ -110,8 +110,8 @@ namespace API.Services
                 var data = repo.List(id);
                 data.ForEach(l =>
                 {
-                    l.FLargeUrl = "data:image/jpeg;base64, " + Convert.ToBase64String(File.ReadAllBytes(imageFolderPath + l.FLargeUrl));
-                    l.FThumbnailUrl = "data:image/jpeg;base64, " + Convert.ToBase64String(File.ReadAllBytes(imageFolderPath + l.FThumbnailUrl));
+                    l.FLargeUrl = Helper.ToBase64String(imageFolderPath, l.FLargeUrl);
+                    l.FThumbnailUrl = Helper.ToBase64String(imageFolderPath, l.FThumbnailUrl);
                 });
                 return data.Select(l => new LandmarkModel(l)).ToList();
             }
@@ -121,8 +121,11 @@ namespace API.Services
         {
             using (LandmarkRepository repo = new LandmarkRepository())
             {
-                //imageFolderPath
-                return new LandmarkModel(repo.Read(id));
+                var landmark = repo.Read(id);
+                var data = new LandmarkModel(landmark);
+                data.FLargeUrl = Helper.ToBase64String(imageFolderPath, landmark.FLargeUrl);
+                data.FThumbnailUrl = Helper.ToBase64String(imageFolderPath, landmark.FThumbnailUrl);
+                return data;
             }
         }
 
