@@ -19,15 +19,15 @@ namespace API.Controllers
     public class LandmarksController : ControllerBase
     {
         private IService _service;
+      
         public LandmarksController(IService userService, IWebHostEnvironment webHostEnvironment)
         {
-            _service = userService;      
+            _service = userService;
         }
 
-        [AllowAnonymous]
-        [HttpGet("/{id}")]
-        public IActionResult Landmark(int id)
-        {         
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
             var data = _service.Landmark(id);
             return Ok(data);
         }
