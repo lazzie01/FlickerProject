@@ -1,0 +1,43 @@
+<br/>
+<div class="row">
+<div class="col-sm-12">
+    <div class="form-group">
+        <button type="button" class="btn btn-dark" (click)="openModal('custom-modal-1')">Add Location</button>
+    </div>
+    <div *ngIf="locations" class="form-group">
+        <input type="text" class="form-control" placeholder="Search" style="width:122px;" [(ngModel)]="searchTerm"/>
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th>Location</th>
+                    <th>Explore</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        
+            <tbody *ngFor="let location of locations | searchFilter:searchTerm">
+                <tr>
+                    <td>{{location.name }}</td>
+                    <td> <button type="button" class="btn btn-sm btn-outline-dark" (click)="explore(location.id,location.name)">Explore</button></td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-outline-danger" (click)="delete(location.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+<jw-modal id="custom-modal-1">
+    <h5>Search Location</h5> 
+    <span class="text-success">{{delayMessage}}</span>
+    <p>
+        <input type="text" class="form-control" placeholder="Location" style="width:122px;" [(ngModel)]="flickerSearchTerm"/>
+    </p>
+    <button type="button" 
+    class="btn btn-sm btn-dark" 
+    (click)="closeModal('custom-modal-1');"
+    [disabled]="searchDisabled"
+    >Search</button>
+</jw-modal>

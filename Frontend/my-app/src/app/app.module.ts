@@ -9,12 +9,10 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AlertComponent } from './components';
-import { UsersFilterPipe, SafePipe } from './filters/filters';
+import { SearchFilterPipe, SafePipe } from './models/filters';
 import { LocationComponent } from './location/location.component';
 import { LandmarkComponent } from './landmark/landmark.component';
-import { HomeComponent } from './home/home.component';
-import { CaptureComponent } from './capture/capture.component';
-import { SuperComponent } from './super';
+import { LocationListComponent } from './home';
 
 @NgModule({
     imports: [
@@ -27,13 +25,11 @@ import { SuperComponent } from './super';
     ],
     declarations: [
         AppComponent,
-        HomeComponent,
-        CaptureComponent,
+        LocationListComponent,
         LoginComponent,
         RegisterComponent,
-        SuperComponent,
         AlertComponent,
-        UsersFilterPipe,
+        SearchFilterPipe,
         SafePipe,
         LocationComponent,
         LandmarkComponent

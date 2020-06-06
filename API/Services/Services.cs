@@ -1,19 +1,46 @@
-﻿using API.Models;
+﻿using API.Helpers;
+using API.Models;
 using BusinessLayer;
-using DataLayer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
 namespace API.Services
 {
-    public class UserService 
+    public interface IService
     {
-        private readonly string secret= "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING"; //place in appsettings json file
+        UserModel AuthenticateUser(AuthenticateModel authenticateModel);
 
-        public UserModel Authenticate(AuthenticateModel authenticateModel)
+        bool RegisterUser(UserModel userModel);
+
+        List<LocationModel> GetLocations(int id);
+
+        void AddLocation(SearchModel searchModel, string folderPath);
+
+        List<LandmarkModel> GetLocationLandmarks(int id, string imageFolderPath);
+
+        LandmarkModel GetLandmark(int id, string imageFolderPath);
+
+        void DeleteLocation(int userId, int locationId);
+
+    }
+
+    public class Service : IService
+    {
+        private readonly AppSettings _appSettings;
+       
+        public Service(IOptions<AppSettings> appSettings)
+        {
+            _appSettings = appSettings.Value;
+        }
+
+        public UserModel AuthenticateUser(AuthenticateModel authenticateModel)
         {
             using (UserRepository repo = new UserRepository())
             {
@@ -21,19 +48,17 @@ namespace API.Services
                 // return null if user not found
                 if (user == null)
                     return null;
-                if(!user.Activated)//only activated users here
-                    return null;
+
                 // authentication successful so generate jwt token
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(secret);//_appSettings.Secret;
+                var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                       new Claim(ClaimTypes.Name, user.Id.ToString()),
-                       new Claim(ClaimTypes.Role, user.Enum_Role.Value)
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
                     }),
-                    Expires = System.DateTime.UtcNow.AddDays(7),
+                    Expires = DateTime.UtcNow.AddDays(7),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                 };
                 UserModel userModel = new UserModel(user);
@@ -45,7 +70,7 @@ namespace API.Services
             }
         }
 
-        public bool Create(UserModel userModel)
+        public bool RegisterUser(UserModel userModel)
         {
             using (UserRepository repo = new UserRepository())
             {
@@ -58,386 +83,57 @@ namespace API.Services
             }
         }
 
-        public User Read(int id)
+        public List<LocationModel> GetLocations(int id)
         {
             using (UserRepository repo = new UserRepository())
             {
-                var data = repo.Read(id);
-                data.Password = null;
-                return data;
+                var data = repo.Locations(id);
+                if(data==null)
+                    return null;
+                return data.Select(l => new LocationModel(l)).ToList();
             }
         }
 
-        public void Edit(int id, User item)
+        public void AddLocation(SearchModel searchModel, string folderPath)
         {
-            using (UserRepository repo = new UserRepository())
-            {
-                repo.Edit(id, item);
+            using (LocationRepository repo = new LocationRepository())
+            {    
+                if(!string.IsNullOrEmpty(searchModel.Query))
+                repo.Create(searchModel.Id, searchModel.Query, folderPath);
             }
         }
 
-        public void Delete(int id)
+        public List<LandmarkModel> GetLocationLandmarks(int id, string imageFolderPath)
         {
-            using (UserRepository repo = new UserRepository())
+            using (LandmarkRepository repo = new LandmarkRepository())
             {
-                repo.Delete(id);
-            }
-        }
-
-        public List<User> List()
-        {
-            using (UserRepository repo = new UserRepository())
-            {
-                var data = repo.List();
-                data.ForEach(d =>
+                var data = repo.List(id);
+                data.ForEach(l =>
                 {
-                    d.Password = null;
+                    l.FLargeUrl = Helper.ToBase64String(imageFolderPath, l.FLargeUrl);
+                    l.FThumbnailUrl = Helper.ToBase64String(imageFolderPath, l.FThumbnailUrl);
                 });
+                return data.Select(l => new LandmarkModel(l)).ToList();
+            }
+        }
+
+        public LandmarkModel GetLandmark(int id, string imageFolderPath)
+        {
+            using (LandmarkRepository repo = new LandmarkRepository())
+            {
+                var landmark = repo.Read(id);
+                var data = new LandmarkModel(landmark);
+                data.FLargeUrl = Helper.ToBase64String(imageFolderPath, landmark.FLargeUrl);
+                data.FThumbnailUrl = Helper.ToBase64String(imageFolderPath, landmark.FThumbnailUrl);
                 return data;
             }
         }
-    }
 
-    public class EnumService
-    {
-        public void Create(Enum enumParam)
+        public void DeleteLocation(int userId, int locationId)
         {
-            using (EnumRepository repo = new EnumRepository())
+            using(UserLocationRepository repo = new UserLocationRepository())
             {
-                repo.Create(enumParam);
-            }
-        }
-
-        public DataLayer.Enum Read(System.Type type, int key)
-        {
-            using (EnumRepository repo = new EnumRepository())
-            {
-                return repo.Read(type, key);
-            }
-        }
-
-        public void Edit(System.Type type, int key, DataLayer.Enum newEnum)
-        {
-            using (EnumRepository repo = new EnumRepository())
-            {
-                 repo.Edit(type, key, newEnum);
-            }
-        }
-
-        public void Delete(System.Type type, int key)
-        {
-            using (EnumRepository repo = new EnumRepository())
-            {
-                repo.Delete(type, key);
-            }
-        }
-
-        public System.Object List(System.Type type)
-        {
-            using (EnumRepository repo = new EnumRepository())
-            {
-                return repo.List(type);
-            }
-        }
-    }
-
-    public class TestCentreService
-    {
-        public void Create(TestCentre item)
-        {
-            using (TestCentreRepository repo = new TestCentreRepository())
-            {
-                repo.Create(item);
-            }
-        }
-
-        public TestCentre Read(int id)
-        {
-            using (TestCentreRepository repo = new TestCentreRepository())
-            {
-                return repo.Read(id);
-            }
-        }
-
-        public void Edit(int id, TestCentre item)
-        {
-            using (TestCentreRepository repo = new TestCentreRepository())
-            {
-                repo.Edit(id, item);
-            }
-        }
-
-        public void Delete(int id)
-        {
-            using (TestCentreRepository repo = new TestCentreRepository())
-            {
-                repo.Delete(id);
-            }
-        }
-
-        public List<TestCentre> List()
-        {
-            using (TestCentreRepository repo = new TestCentreRepository())
-            {
-                return repo.List();
-            }
-        }
-    }
-
-    public class PatientCentreService
-    {
-        public void Create(Patient item)
-        {
-            using (PatientRepository repo = new PatientRepository())
-            {
-                repo.Create(item);
-            }
-        }
-
-        public Patient Read(int id, int testCentreId)
-        {
-            using (PatientRepository repo = new PatientRepository())
-            {
-                return repo.Read(id, testCentreId);
-            }
-        }
-
-        public void Edit(int id, Patient item, int testCentreId)
-        {
-            using (PatientRepository repo = new PatientRepository())
-            {
-                repo.Edit(id, item, testCentreId);
-            }
-        }
-
-        public void Delete(int id, int testCentreId)
-        {
-            using (PatientRepository repo = new PatientRepository())
-            {
-                repo.Delete(id, testCentreId);
-            }
-        }
-
-        public List<Patient> List(int testCentreId)
-        {
-            using (PatientRepository repo = new PatientRepository())
-            {
-                return repo.List(testCentreId);
-            }
-        }
-    }
-
-    public class NextOfKinService
-    {
-        public void Create(NextOfKin item)
-        {
-            using (NextOfKinRepository repo = new NextOfKinRepository())
-            {
-                repo.Create(item);
-            }
-        }
-
-        public NextOfKin Read(int id)
-        {
-            using (NextOfKinRepository repo = new NextOfKinRepository())
-            {
-                return repo.Read(id);
-            }
-        }
-
-        public void Edit(int id, NextOfKin item)
-        {
-            using (NextOfKinRepository repo = new NextOfKinRepository())
-            {
-                repo.Edit(id, item);
-            }
-        }
-
-        public void Delete(int id)
-        {
-            using (NextOfKinRepository repo = new NextOfKinRepository())
-            {
-                repo.Delete(id);
-            }
-        }
-
-        public List<NextOfKin> List()
-        {
-            using (NextOfKinRepository repo = new NextOfKinRepository())
-            {
-                return repo.List();
-            }
-        }
-    }
-    
-    public class PortOfEntryService
-    {
-        public void Create(PortOfEntry item)
-        {
-            using (PortOfEntryRepository repo = new PortOfEntryRepository())
-            {
-                repo.Create(item);
-            }
-        }
-
-        public PortOfEntry Read(int id)
-        {
-            using (PortOfEntryRepository repo = new PortOfEntryRepository())
-            {
-                return repo.Read(id);
-            }
-        }
-
-        public void Edit(int id, PortOfEntry item)
-        {
-            using (PortOfEntryRepository repo = new PortOfEntryRepository())
-            {
-                repo.Edit(id, item);
-            }
-        }
-
-        public void Delete(int id)
-        {
-            using (PortOfEntryRepository repo = new PortOfEntryRepository())
-            {
-                repo.Delete(id);
-            }
-        }
-
-        public List<PortOfEntry> List()
-        {
-            using (PortOfEntryRepository repo = new PortOfEntryRepository())
-            {
-                return repo.List();
-            }
-        }
-    }
-
-    public class CentreService
-    {
-        public void Create(Centre item)
-        {
-            using (CentreRepository repo = new CentreRepository())
-            {
-                repo.Create(item);
-            }
-        }
-
-        public Centre Read(int id)
-        {
-            using (CentreRepository repo = new CentreRepository())
-            {
-                return repo.Read(id);
-            }
-        }
-
-        public void Edit(int id, Centre item)
-        {
-            using (CentreRepository repo = new CentreRepository())
-            {
-                repo.Edit(id, item);
-            }
-        }
-
-        public void Delete(int id)
-        {
-            using (CentreRepository repo = new CentreRepository())
-            {
-                repo.Delete(id);
-            }
-        }
-
-        public List<Centre> List()
-        {
-            using (CentreRepository repo = new CentreRepository())
-            {
-                return repo.List();
-            }
-        }
-    }
-
-    public class CaptureHistoryService
-    {
-        public void Create(CaptureHistory item)
-        {
-            using (CaptureHistoryRepository repo = new CaptureHistoryRepository())
-            {
-                repo.Create(item);
-            }
-        }
-
-        public CaptureHistory Read(int id)
-        {
-            using (CaptureHistoryRepository repo = new CaptureHistoryRepository())
-            {
-                return repo.Read(id);
-            }
-        }
-
-        public void Edit(int id, CaptureHistory item)
-        {
-            using (CaptureHistoryRepository repo = new CaptureHistoryRepository())
-            {
-                repo.Edit(id, item);
-            }
-        }
-
-        public void Delete(int id)
-        {
-            using (CaptureHistoryRepository repo = new CaptureHistoryRepository())
-            {
-                repo.Delete(id);
-            }
-        }
-
-        public List<CaptureHistory> List()
-        {
-            using (CaptureHistoryRepository repo = new CaptureHistoryRepository())
-            {
-                return repo.List();
-            }
-        }
-    }
-
-    public class CentreHistoryService
-    {
-        public void Create(CentreHistory item)
-        {
-            using (CentreHistoryRepository repo = new CentreHistoryRepository())
-            {
-                repo.Create(item);
-            }
-        }
-
-        public CentreHistory Read(int id)
-        {
-            using (CentreHistoryRepository repo = new CentreHistoryRepository())
-            {
-                return repo.Read(id);
-            }
-        }
-
-        public void Edit(int id, CentreHistory item)
-        {
-            using (CentreHistoryRepository repo = new CentreHistoryRepository())
-            {
-                repo.Edit(id, item);
-            }
-        }
-
-        public void Delete(int id)
-        {
-            using (CentreHistoryRepository repo = new CentreHistoryRepository())
-            {
-                repo.Delete(id);
-            }
-        }
-
-        public List<CentreHistory> List()
-        {
-            using (CentreHistoryRepository repo = new CentreHistoryRepository())
-            {
-                return repo.List();
+                repo.Delete(userId, locationId);
             }
         }
     }

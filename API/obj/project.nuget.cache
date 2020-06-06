@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Sk43EmbfvEyMriN0T1nkPq2pUzjDn7rZi7wePZRZBm/F4sP2rqInkFIk1kx2gbMwnCeWe7KjAdQm8c049T2Y1w==",
+  "dgSpecHash": "NH3DdZ1uyGvhfVlD+CAyS+/8ZZlH7J14yLgKQkT0DSokqeiXdH90Fsyrc5MvahgFGAsCtLWgt6mzPnHjHK6tPw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\USER\\source\\repos\\QuarantineMe\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\USER\\source\\repos\\FlickerProject\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.aspnet.identity.core\\2.2.3\\microsoft.aspnet.identity.core.2.2.3.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.4\\microsoft.aspnetcore.authentication.jwtbearer.3.1.4.nupkg.sha512",

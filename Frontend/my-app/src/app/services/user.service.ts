@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { User, Search, Landmark } from '../models/models';
+import { User, Search, Landmark } from '../models/user';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -9,27 +9,6 @@ export class UserService {
 
     private apiUrl:string ="http://localhost:51431";
 
-    list() {
-        return this.http.get<User[]>(`${this.apiUrl}/users`);
-    }
-
-    read(id:number) {
-        return this.http.get<User>(`${this.apiUrl}/users/${id}`);
-    }
-
-    delete(id:number) {
-        return this.http.delete(`${this.apiUrl}/users/${id}`);
-    }
-
-    edit(id:number, user:any) {
-        return this.http.put<any>(`${this.apiUrl}/users/${id}`,user);
-    }
-
-    create(user:any) {
-        return this.http.post<any>(`${this.apiUrl}/users/register`,user);
-    }
-
-    //junk
     locations(id:number) {
         return this.http.get<Location[]>(`${this.apiUrl}/locations/${id}`);
     }
