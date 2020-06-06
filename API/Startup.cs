@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text;
 using API.Helpers;
 using API.Services;
@@ -5,6 +6,7 @@ using DataLayer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -20,6 +22,13 @@ namespace API
             using (var client = new ApplicationDbContext())
             {
                 client.Database.EnsureCreated();
+                //custom seeding
+                if(!client.Users.Any())
+                {
+                    DBInitializer dBInitializer = new DBInitializer(client);
+                    dBInitializer.Seed();                  
+                }
+                             
             }
         }
 
@@ -57,7 +66,7 @@ namespace API
             });
 
             // configure DI for application services
-            services.AddScoped<IService, Service>();
+            //services.AddScoped<IService, Service>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

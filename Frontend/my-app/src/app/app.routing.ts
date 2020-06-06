@@ -2,15 +2,19 @@
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 import { AuthGuard } from './helpers';
-import { LocationComponent } from './location/location.component';
+import { HomeComponent } from './home/home.component';
 import { LandmarkComponent } from './landmark/landmark.component';
-import { LocationListComponent } from './home';
+import { CaptureComponent } from './capture';
+import { SuperComponent } from './super';
+
 
 const routes: Routes = [
-    { path: '', component: LocationListComponent, canActivate: [AuthGuard] },
+    { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path:'location/:id',  component:LocationComponent, canActivate: [AuthGuard] },
+    { path:'home/:id',  component:HomeComponent, canActivate: [AuthGuard] },
+    { path:'capture',  component:CaptureComponent, canActivate: [AuthGuard] },
+    { path:'super',  component:SuperComponent, canActivate: [AuthGuard] },
     { path:'landmark/:id',  component:LandmarkComponent, canActivate: [AuthGuard] },
 
     // otherwise redirect to home

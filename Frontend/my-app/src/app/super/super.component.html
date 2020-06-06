@@ -1,0 +1,362 @@
+<div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+               <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="search by username" style="width:170px;" [(ngModel)]="searchTerm"/>
+               </div>
+               <div class="col-sm-1">
+                <button type="button" class="btn btn-sm btn-success"
+                (click)="openCreateUserModal('custom-modal-4')"> 
+                Add User
+                </button>
+               </div>
+            </div>
+            
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Organization</th>
+                        <th>View</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+            
+                <tbody *ngFor="let user of users | usersFilter:searchTerm">
+                    <tr>
+                        <td>
+                            {{user.username }}
+                        </td>
+                        <td> 
+                            {{user.name }}
+                        </td>
+                        <td>
+                            {{user.surname }}
+                        </td>
+                        <td>
+                            {{user.organization }}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-outline-dark"
+                            (click)="openViewUserModal('custom-modal-1',user.id)">View</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-outline-primary"
+                            (click)="openEditUserModal('custom-modal-2',user.id)">Edit</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-outline-danger"
+                            (click)="openDeleteUserModal('custom-modal-3',user.id)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>        
+    </div>
+
+     <!-- View Dialog Box -->
+    <jw-modal id="custom-modal-1">
+        <h6>User Details</h6> 
+        <div class="row" *ngIf="user">
+            <div class="col-sm-12">
+                <div class="row">
+                     <div class="col-sm-6">
+                        <b>Username</b>
+                       </div>
+                       <div class="col-sm-6">
+                         {{ user.username }}
+                       </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                       <b>First Name</b>
+                      </div>
+                      <div class="col-sm-6">
+                        {{ user.name }}
+                      </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Last Name</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ user.surname }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Role</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ user.role.value }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Organization</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ user.organization }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Department</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ user.department }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Phone</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ user.phone }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Email</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ user.email }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Activated</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ user.activated }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Centre</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ user.testCentre.name }}
+                  </div>
+               </div>
+ 
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-2 offset-sm-10">
+                    <button type="button" class="btn btn-sm btn-danger" 
+                            (click)="closeViewUserModal('custom-modal-1');">Close</button>
+                </div>
+            </div>
+        </div>
+    </jw-modal>
+    <!-- Edit Dialog Box -->
+    <jw-modal id="custom-modal-2">
+        <h6>Edit User Details</h6> 
+        <div class="row" *ngIf="user">
+            <div class="col-sm-12">
+                <form [formGroup]="editUserForm" (ngSubmit)="onSubmitEditedUser(user.id)">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && ef.username.errors }" />
+                        <div *ngIf="submitted && ef.username.errors" class="invalid-feedback">
+                            <div *ngIf="ef.username.errors.required">Username is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" formControlName="password" class="form-control"  />
+                    </div>
+                    <div class="form-group">
+                        <label for="name">First Name</label>
+                        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && ef.name.errors }" />
+                        <div *ngIf="submitted && ef.name.errors" class="invalid-feedback">
+                            <div *ngIf="ef.name.errors.required">First Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="surname">Last Name</label>
+                        <input type="text" formControlName="surname" class="form-control" [ngClass]="{ 'is-invalid': submitted && ef.surname.errors }" />
+                        <div *ngIf="submitted && ef.surname.errors" class="invalid-feedback">
+                            <div *ngIf="ef.surname.errors.required">Last Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="organization">Organization</label>
+                        <input type="text" formControlName="organization" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <input type="text" formControlName="department" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && ef.phone.errors }" />
+                        <div *ngIf="submitted && ef.phone.errors" class="invalid-feedback">
+                            <div *ngIf="ef.phone.errors.required">Phone is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" formControlName="email" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="activated">Activated</label>
+                        <input type="text" formControlName="activated" class="form-control" [ngClass]="{ 'is-invalid': submitted && ef.activated.errors }" />
+                        <div *ngIf="submitted && ef.activated.errors" class="invalid-feedback">
+                            <div *ngIf="ef.activated.errors.required">Activated is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="testCentreName">Centre</label>
+                        <input type="text" formControlName="testCentreName" class="form-control" readonly="true"/>
+                    </div>
+
+                    <div class="form-group" *ngIf="roles">
+                        <label for="roleId">Role</label>
+                        <select formControlName="roleId" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && ef.roleId.errors }"
+                        [(ngModel)]="selectedRoleValue" >
+                        <option *ngFor="let role of roles" [value]="role.key">{{role.value}}</option>
+                        </select>
+                        <div *ngIf="submitted && ef.roleId.errors" class="invalid-feedback">
+                            <div *ngIf="ef.roleId.errors.required">Role is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-sm  btn-primary">              
+                            Update
+                        </button>
+            
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-2 offset-sm-10">
+                    <button type="button" class="btn btn-sm btn-danger" 
+                            (click)="closeEditUserModal('custom-modal-2');">Close</button>
+                </div>
+            </div>
+        </div>
+    </jw-modal>
+<!-- Delete Dialog Box -->
+<jw-modal id="custom-modal-3">
+    <h6>Delete User</h6> 
+    <div class="row" *ngIf="user">
+        <div class="col-sm-12">
+            <p>
+                Are you sure, you want to delete <b>{{user.username}}</b>
+            </p>
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-2 offset-sm-10">
+                <button type="button" class="btn btn-sm btn-danger" 
+                        (click)="closeDeleteUserModal('custom-modal-3',user.id);">Delete</button>
+            </div>
+        </div>
+    </div>
+</jw-modal>
+
+<!-- Create Dialog Box -->
+<jw-modal id="custom-modal-4">
+    <h6>Create User</h6> 
+        <div class="row">
+            <div class="col-sm-12">
+                <form [formGroup]="createUserForm" (ngSubmit)="onSubmitCreatedUser()">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.username.errors }" />
+                        <div *ngIf="submitted && cf.username.errors" class="invalid-feedback">
+                            <div *ngIf="cf.username.errors.required">Username is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.password.errors }" />
+                        <div *ngIf="submitted && cf.password.errors" class="invalid-feedback">
+                            <div *ngIf="cf.password.errors.required">Password is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">First Name</label>
+                        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.name.errors }" />
+                        <div *ngIf="submitted && cf.name.errors" class="invalid-feedback">
+                            <div *ngIf="cf.name.errors.required">First Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="surname">Last Name</label>
+                        <input type="text" formControlName="surname" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.surname.errors }" />
+                        <div *ngIf="submitted && cf.surname.errors" class="invalid-feedback">
+                            <div *ngIf="cf.surname.errors.required">Last Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="organization">Organization</label>
+                        <input type="text" formControlName="organization" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <input type="text" formControlName="department" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.phone.errors }" />
+                        <div *ngIf="submitted && cf.phone.errors" class="invalid-feedback">
+                            <div *ngIf="cf.phone.errors.required">Phone is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" formControlName="email" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="activated">Activated</label>
+                        <input type="text" formControlName="activated" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.activated.errors }" />
+                        <div *ngIf="submitted && cf.activated.errors" class="invalid-feedback">
+                            <div *ngIf="cf.activated.errors.required">Activated is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="testcentres">
+                        <label for="testCentreId">Centre</label>
+                        <select formControlName="testCentreId" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.testCentreId.errors }">
+                        <option *ngFor="let testcentre of testcentres" [value]="testcentre.id">{{testcentre.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && cf.testCentreId.errors" class="invalid-feedback">
+                            <div *ngIf="cf.testCentreId.errors.required">Centre is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" *ngIf="roles">
+                        <label for="roleId">Role</label>
+                        <select formControlName="roleId" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.roleId.errors }">
+                        <option *ngFor="let role of roles" [value]="role.key">{{role.value}}</option>
+                        </select>
+                        <div *ngIf="submitted && cf.roleId.errors" class="invalid-feedback">
+                            <div *ngIf="cf.roleId.errors.required">Role is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-sm  btn-success">              
+                            Save
+                        </button>
+            
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-2 offset-sm-10">
+                    <button type="button" class="btn btn-sm btn-danger" 
+                    (click)="closeCreateUserModal('custom-modal-4');">Close</button>
+                </div>
+            </div>
+        </div>
+</jw-modal>
+</div>

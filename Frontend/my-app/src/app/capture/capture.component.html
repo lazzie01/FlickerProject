@@ -1,0 +1,700 @@
+<div>
+    <div class="row">
+<div class="col-sm-12">
+<h5> {{currentUser.testCentre.name}} Covid Suspects</h5>
+</div>
+    </div>
+</div>
+
+<div>
+    <div class="row">
+        <div class="col-sm-2">
+         <input type="text" class="form-control" placeholder="search by name" style="width:170px;" [(ngModel)]="searchTerm"/>
+        </div>
+        <div class="col-sm-2">
+         <button type="button" class="btn btn-sm btn-success"
+         (click)="openCreatePatientModal('custom-modal-4')"> 
+         Add Covid Suspect
+         </button>
+        </div>
+     </div>
+    <div class="row">    
+        <div class="col-sm-12">
+         
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Id Number</th>
+                        <th>Id Type</th>
+                        <th>Sex</th>
+                        <th>Age</th>                      
+                        <th>View</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+            
+                <tbody *ngFor="let patient of patients">
+                    <tr>
+                        <td>
+                            {{patient.name }}
+                        </td>
+                        <td>
+                            {{patient.surname }}
+                        </td>
+                        <td>
+                            {{patient.idNumber }}
+                        </td>
+                        <td> 
+                            {{patient.idType }}
+                        </td>
+                        <td>
+                            {{patient.sex }}
+                        </td>
+                        <td>
+                            {{patient.age }}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-outline-dark"
+                            (click)="openViewPatientModal('custom-modal-1',patient.id)">
+                            View</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-outline-primary"
+                            (click)="openEditPatientModal('custom-modal-2',patient.id)">Edit</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-outline-danger"
+                            (click)="openDeletePatientModal('custom-modal-3',patient.id)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>        
+    </div>
+</div>
+
+     <!-- View Dialog Box -->
+     <jw-modal id="custom-modal-1">
+        <span><h6>Personal Details</h6></span>
+        <div class="row" *ngIf="patient">
+            <div class="col-sm-12">
+                <div class="row">
+                     <div class="col-sm-6">
+                        <b>Name</b>
+                       </div>
+                       <div class="col-sm-6">
+                         {{ patient.name }}
+                       </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                       <b>Surname</b>
+                      </div>
+                      <div class="col-sm-6">
+                        {{ patient.surname }}
+                      </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Id Number</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.idNumber }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Id Type</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.idType }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Sex</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.sex }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Date of Birth</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.dob | date: 'dd/MM/yyyy' }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Age</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.age }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Disabled</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.disabled }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Occupation</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.occupation }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Nationality</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.nationality }}
+                  </div>
+               </div>
+               <br/>
+               <span><h6>Contact Details</h6></span>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Home Address</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.homeAddress }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Phone Number</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.phoneNumber }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Province</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.province }}
+                  </div>
+               </div>
+               <br/>
+               <span><h6>Next of Kin Details</h6></span>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Full Name</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.nextOfKin.fullname }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Address</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.nextOfKin.address }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Phone</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.nextOfKin.phone }}
+                  </div>
+               </div>
+               <br/>
+               <span><h6>Previous Country Details</h6></span>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Country</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.previousCountry }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>City</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.previousCountryCity }}
+                  </div>
+               </div>
+               <br/>              
+               <span><h6>Port of Entry Details</h6></span>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Port of Entry</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.portOfEntry.name }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Arrival Date</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.portOfEntry.dateOfArrival | date: 'dd/MM/yyyy' }}
+                  </div>
+               </div>
+               <br/>
+               <span><h6>Quarantine Centre Details</h6></span>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Centre Name</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.testCentre }}
+                  </div>
+               </div>
+               
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Captured By</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.capturedBy }}
+                  </div>
+               </div>
+               <div class="row">
+                <div class="col-sm-6">
+                   <b>Date Captured</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{ patient.captureDate | date: 'dd/MM/yyyy' }}
+                  </div>
+               </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="col-sm-2 offset-sm-10">
+                    <button type="button" class="btn btn-sm btn-danger" 
+                            (click)="closeViewPatientModal('custom-modal-1');">Close</button>
+                </div>
+            </div>
+        </div>
+    </jw-modal>
+    
+<!-- Edit Dialog Box -->
+<jw-modal id="custom-modal-2">
+    <h5>Add Covid Suspect</h5> 
+        <div class="row">
+            <div class="col-sm-12">
+                <form [formGroup]="createPatientForm" (ngSubmit)="onSubmitEditPatient()">
+                    <span><h6>Personal Details</h6></span>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.name.errors }" />
+                        <div *ngIf="submitted && cf.name.errors" class="invalid-feedback">
+                            <div *ngIf="cf.name.errors.required">Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="surname">Surname</label>
+                        <input type="text" formControlName="surname" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.surname.errors }" />
+                        <div *ngIf="submitted && cf.surname.errors" class="invalid-feedback">
+                            <div *ngIf="cf.surname.errors.required">Surname is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idNumber">Id Number</label>
+                        <input type="text" formControlName="idNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.idNumber.errors }" />
+                        <div *ngIf="submitted && cf.idNumber.errors" class="invalid-feedback">
+                            <div *ngIf="cf.idNumber.errors.required">Id Number is required</div>
+                        </div>
+                    </div>         
+                    <div class="form-group">
+                        <label for="idType">Id Type</label>
+                        <select formControlName="idType" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.idType.errors }" >
+                        <option *ngFor="let i of idEnums" [value]="i.key">{{i.value}}</option>
+                        </select>
+                        <div *ngIf="submitted && cf.idType.errors" class="invalid-feedback">
+                            <div *ngIf="cf.idType.errors.required">Id Type is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sexId">Gender</label>
+                        <select formControlName="sexId" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.sexId.errors }" >
+                        <option *ngFor="let i of sexEnums" [value]="i.key">{{i.value}}</option>
+                        </select>                     
+                        <div *ngIf="submitted && cf.sexId.errors" class="invalid-feedback">
+                            <div *ngIf="cf.sexId.errors.required">Gender is required</div>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" formControlName="dob" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.dob.errors }" />
+                        <div *ngIf="submitted && cf.dob.errors" class="invalid-feedback">
+                            <div *ngIf="cf.dob.errors.required">Date of Birth is required</div>
+                        </div>
+                    </div>        
+                    <div class="form-group">
+                        <label for="disabled">Disabled</label>
+                        <select formControlName="disabled" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.disabled.errors }" >
+                        <option id="1" [value]=true>Yes</option>
+                        <option id="2" [value]=false>No</option>
+                        </select>
+                        <div *ngIf="submitted && cf.disabled.errors" class="invalid-feedback">
+                            <div *ngIf="cf.disabled.errors.required">Disabled is required</div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="occupation">Occupation</label>
+                        <input type="text" formControlName="occupation" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.occupation.errors }" />
+                        <div *ngIf="submitted && cf.occupation.errors" class="invalid-feedback">
+                            <div *ngIf="cf.occupation.errors.required">Occupation is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nationalityId">Nationality</label>
+                        <select formControlName="nationalityId" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.nationalityId.errors }" >
+                        <option *ngFor="let i of countryEnums" [value]="i.key">{{i.value}}</option>
+                        </select>
+                        <div *ngIf="submitted && cf.nationalityId.errors" class="invalid-feedback">
+                            <div *ngIf="cf.nationalityId.errors.required">Nationality is required</div>
+                        </div>
+                    </div>
+
+                    <span><h6>Contact Details</h6></span>
+                    <div class="form-group">
+                        <label for="homeAddress">Home Address</label>
+                        <input type="text" formControlName="homeAddress" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.homeAddress.errors }" />
+                        <div *ngIf="submitted && cf.homeAddress.errors" class="invalid-feedback">
+                            <div *ngIf="cf.homeAddress.errors.required">Home Address is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="text" formControlName="phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.phoneNumber.errors }" />
+                        <div *ngIf="submitted && cf.phoneNumber.errors" class="invalid-feedback">
+                            <div *ngIf="cf.phoneNumber.errors.required">Phone Number is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="provinceId">Province</label>
+                        <select formControlName="provinceId" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.provinceId.errors }" >
+                        <option *ngFor="let i of provinceEnums" [value]="i.key">{{i.value}}</option>
+                        </select>
+                        <div *ngIf="submitted && cf.provinceId.errors" class="invalid-feedback">
+                            <div *ngIf="cf.provinceId.errors.required">Province is required</div>
+                        </div>
+                    </div>
+
+                    <span><h6>Next of Kin Details</h6></span>
+
+                    <div class="form-group">
+                        <label for="nFullname">Full Name</label>
+                        <input type="text" formControlName="nFullname" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.nFullname.errors }" />
+                        <div *ngIf="submitted && cf.nFullname.errors" class="invalid-feedback">
+                            <div *ngIf="cf.nFullname.errors.required">Full Name is required</div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label for="nAddress">Address</label>
+                        <input type="text" formControlName="nAddress" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.nAddress.errors }" />
+                        <div *ngIf="submitted && cf.nAddress.errors" class="invalid-feedback">
+                            <div *ngIf="cf.nAddress.errors.required">Address is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nPhone">Phone</label>
+                        <input type="text" formControlName="nPhone" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.nPhone.errors }" />
+                        <div *ngIf="submitted && cf.nPhone.errors" class="invalid-feedback">
+                            <div *ngIf="cf.nPhone.errors.required">Phone is required</div>
+                        </div>
+                    </div>
+
+                    <span><h6>Previous Country Details</h6></span>
+
+                    <div class="form-group">
+                        <label for="previousCountryId">Country</label>
+                        <select formControlName="previousCountryId" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.previousCountryId.errors }" >
+                        <option *ngFor="let i of countryEnums" [value]="i.key">{{i.value}}</option>
+                        </select>
+                        <div *ngIf="submitted && cf.previousCountryId.errors" class="invalid-feedback">
+                            <div *ngIf="cf.previousCountryId.errors.required">Country is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="previousCountryCity">City</label>
+                        <input type="text" formControlName="previousCountryCity" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.previousCountryCity.errors }" />
+                        <div *ngIf="submitted && cf.previousCountryCity.errors" class="invalid-feedback">
+                            <div *ngIf="cf.previousCountryCity.errors.required">City is required</div>
+                        </div>
+                    </div>
+
+                    <span><h6>Port of Entry Details</h6></span>
+                    <div class="form-group">
+                        <label for="pPortOfEntryId">Port of Entry</label>
+                        <select formControlName="pPortOfEntryId" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.pPortOfEntryId.errors }" >
+                        <option *ngFor="let i of portOfEntryEnums" [value]="i.key">{{i.value}}</option>
+                        </select>
+                        <div *ngIf="submitted && cf.pPortOfEntryId.errors" class="invalid-feedback">
+                            <div *ngIf="cf.pPortOfEntryId.errors.required">Port of Entry is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pDateOfArrival">Arrival Date</label>
+                        <input type="date" formControlName="pDateOfArrival" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.pDateOfArrival.errors }" />
+                        <div *ngIf="submitted && cf.pDateOfArrival.errors" class="invalid-feedback">
+                            <div *ngIf="cf.pDateOfArrival.errors.required">Arrival Date is required</div>
+                        </div>
+                    </div>              
+                    <div class="form-group">
+                        <button class="btn btn-sm  btn-success">              
+                            Save
+                        </button>
+            
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-2 offset-sm-10">
+                    <button type="button" class="btn btn-sm btn-danger" 
+                    (click)="closeEditPatientModal('custom-modal-2');">Close</button>
+                </div>
+            </div>
+        </div>
+</jw-modal>
+    <!-- Delete Dialog Box -->
+<jw-modal id="custom-modal-3">
+    <h6>Delete Covid Suspect</h6> 
+    <div class="row" *ngIf="patient">
+        <div class="col-sm-12">
+            <p>
+                Are you sure, you want to delete <b>{{patient.name+' '+patient.surname}}</b>{{' ?'}}
+            </p>
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-2 offset-sm-10">
+                <button type="button" class="btn btn-sm btn-danger" 
+                        (click)="closeDeletePatientModal('custom-modal-3',patient.id);">Delete</button>
+            </div>
+        </div>
+    </div>
+</jw-modal>
+
+<!-- Create Dialog Box -->
+<jw-modal id="custom-modal-4">
+    <h5>Add Covid Suspect</h5> 
+        <div class="row">
+            <div class="col-sm-12">
+                <form [formGroup]="createPatientForm" (ngSubmit)="onSubmitCreatedPatient()">
+                    <span><h6>Personal Details</h6></span>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.name.errors }" />
+                        <div *ngIf="submitted && cf.name.errors" class="invalid-feedback">
+                            <div *ngIf="cf.name.errors.required">Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="surname">Surname</label>
+                        <input type="text" formControlName="surname" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.surname.errors }" />
+                        <div *ngIf="submitted && cf.surname.errors" class="invalid-feedback">
+                            <div *ngIf="cf.surname.errors.required">Surname is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idNumber">Id Number</label>
+                        <input type="text" formControlName="idNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.idNumber.errors }" />
+                        <div *ngIf="submitted && cf.idNumber.errors" class="invalid-feedback">
+                            <div *ngIf="cf.idNumber.errors.required">Id Number is required</div>
+                        </div>
+                    </div>         
+                    <div class="form-group">
+                        <label for="idType">Id Type</label>
+                        <select formControlName="idType" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.idType.errors }" >
+                        <option *ngFor="let i of idEnums" [value]="i.key">{{i.value}}</option>
+                        </select>
+                        <div *ngIf="submitted && cf.idType.errors" class="invalid-feedback">
+                            <div *ngIf="cf.idType.errors.required">Id Type is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sexId">Gender</label>
+                        <select formControlName="sexId" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.sexId.errors }" >
+                        <option *ngFor="let i of sexEnums" [value]="i.key">{{i.value}}</option>
+                        </select>                     
+                        <div *ngIf="submitted && cf.sexId.errors" class="invalid-feedback">
+                            <div *ngIf="cf.sexId.errors.required">Gender is required</div>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" formControlName="dob" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.dob.errors }" />
+                        <div *ngIf="submitted && cf.dob.errors" class="invalid-feedback">
+                            <div *ngIf="cf.dob.errors.required">Date of Birth is required</div>
+                        </div>
+                    </div>        
+                    <div class="form-group">
+                        <label for="disabled">Disabled</label>
+                        <select formControlName="disabled" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.disabled.errors }" >
+                        <option id="1" [value]=true>Yes</option>
+                        <option id="2" [value]=false>No</option>
+                        </select>
+                        <div *ngIf="submitted && cf.disabled.errors" class="invalid-feedback">
+                            <div *ngIf="cf.disabled.errors.required">Disabled is required</div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="occupation">Occupation</label>
+                        <input type="text" formControlName="occupation" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.occupation.errors }" />
+                        <div *ngIf="submitted && cf.occupation.errors" class="invalid-feedback">
+                            <div *ngIf="cf.occupation.errors.required">Occupation is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nationalityId">Nationality</label>
+                        <select formControlName="nationalityId" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.nationalityId.errors }" >
+                        <option *ngFor="let i of countryEnums" [value]="i.key">{{i.value}}</option>
+                        </select>
+                        <div *ngIf="submitted && cf.nationalityId.errors" class="invalid-feedback">
+                            <div *ngIf="cf.nationalityId.errors.required">Nationality is required</div>
+                        </div>
+                    </div>
+
+                    <span><h6>Contact Details</h6></span>
+                    <div class="form-group">
+                        <label for="homeAddress">Home Address</label>
+                        <input type="text" formControlName="homeAddress" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.homeAddress.errors }" />
+                        <div *ngIf="submitted && cf.homeAddress.errors" class="invalid-feedback">
+                            <div *ngIf="cf.homeAddress.errors.required">Home Address is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="text" formControlName="phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.phoneNumber.errors }" />
+                        <div *ngIf="submitted && cf.phoneNumber.errors" class="invalid-feedback">
+                            <div *ngIf="cf.phoneNumber.errors.required">Phone Number is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="provinceId">Province</label>
+                        <select formControlName="provinceId" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.provinceId.errors }" >
+                        <option *ngFor="let i of provinceEnums" [value]="i.key">{{i.value}}</option>
+                        </select>
+                        <div *ngIf="submitted && cf.provinceId.errors" class="invalid-feedback">
+                            <div *ngIf="cf.provinceId.errors.required">Province is required</div>
+                        </div>
+                    </div>
+
+                    <span><h6>Next of Kin Details</h6></span>
+
+                    <div class="form-group">
+                        <label for="nFullname">Full Name</label>
+                        <input type="text" formControlName="nFullname" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.nFullname.errors }" />
+                        <div *ngIf="submitted && cf.nFullname.errors" class="invalid-feedback">
+                            <div *ngIf="cf.nFullname.errors.required">Full Name is required</div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label for="nAddress">Address</label>
+                        <input type="text" formControlName="nAddress" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.nAddress.errors }" />
+                        <div *ngIf="submitted && cf.nAddress.errors" class="invalid-feedback">
+                            <div *ngIf="cf.nAddress.errors.required">Address is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nPhone">Phone</label>
+                        <input type="text" formControlName="nPhone" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.nPhone.errors }" />
+                        <div *ngIf="submitted && cf.nPhone.errors" class="invalid-feedback">
+                            <div *ngIf="cf.nPhone.errors.required">Phone is required</div>
+                        </div>
+                    </div>
+
+                    <span><h6>Previous Country Details</h6></span>
+
+                    <div class="form-group">
+                        <label for="previousCountryId">Country</label>
+                        <select formControlName="previousCountryId" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.previousCountryId.errors }" >
+                        <option *ngFor="let i of countryEnums" [value]="i.key">{{i.value}}</option>
+                        </select>
+                        <div *ngIf="submitted && cf.previousCountryId.errors" class="invalid-feedback">
+                            <div *ngIf="cf.previousCountryId.errors.required">Country is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="previousCountryCity">City</label>
+                        <input type="text" formControlName="previousCountryCity" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.previousCountryCity.errors }" />
+                        <div *ngIf="submitted && cf.previousCountryCity.errors" class="invalid-feedback">
+                            <div *ngIf="cf.previousCountryCity.errors.required">City is required</div>
+                        </div>
+                    </div>
+
+                    <span><h6>Port of Entry Details</h6></span>
+                    <div class="form-group">
+                        <label for="pPortOfEntryId">Port of Entry</label>
+                        <select formControlName="pPortOfEntryId" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && cf.pPortOfEntryId.errors }" >
+                        <option *ngFor="let i of portOfEntryEnums" [value]="i.key">{{i.value}}</option>
+                        </select>
+                        <div *ngIf="submitted && cf.pPortOfEntryId.errors" class="invalid-feedback">
+                            <div *ngIf="cf.pPortOfEntryId.errors.required">Port of Entry is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pDateOfArrival">Arrival Date</label>
+                        <input type="date" formControlName="pDateOfArrival" class="form-control" [ngClass]="{ 'is-invalid': submitted && cf.pDateOfArrival.errors }" />
+                        <div *ngIf="submitted && cf.pDateOfArrival.errors" class="invalid-feedback">
+                            <div *ngIf="cf.pDateOfArrival.errors.required">Arrival Date is required</div>
+                        </div>
+                    </div>              
+                    <div class="form-group">
+                        <button class="btn btn-sm  btn-success">              
+                            Save
+                        </button>
+            
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-2 offset-sm-10">
+                    <button type="button" class="btn btn-sm btn-danger" 
+                    (click)="closeCreatePatientModal('custom-modal-4');">Close</button>
+                </div>
+            </div>
+        </div>
+</jw-modal>

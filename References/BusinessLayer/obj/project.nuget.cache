@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "At1XAmpK8M2V3sKrS/ofUALMSYgJfujxpb621IWcuZJlTVMzlSd10Nj8S7PdjeverRNKCWVBBx0FhILb43xVaA==",
+  "dgSpecHash": "LTilQCwHG9Sl/GMXhfDi5oZOhTdrqslBzfZrXzYlgMU7e82EKjV5F6GVhrxv2YYMPADTasc6ykmnYHt8bRuWUA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\BusinessLayer\\BusinessLayer.csproj",
+  "projectFilePath": "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\BusinessLayer\\BusinessLayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.aspnet.identity.core\\2.2.3\\microsoft.aspnet.identity.core.2.2.3.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

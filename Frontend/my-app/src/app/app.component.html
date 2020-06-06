@@ -3,7 +3,10 @@
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/">Home</a>
+        <a class="nav-link" routerLink="/">{{currentUser.role.value=='super_admin'?'National Quarantine':currentUser.testCentre.name}}</a>
+      </li>
+      <li class="nav-item" *ngIf="currentUser.role.value!='super_admin'">
+        <a class="nav-link" routerLink="/">Accommodation</a>
       </li>
     </ul>    
   </div>
@@ -32,6 +35,6 @@
 <!-- credits -->
 <div class="text-center">
   <p>
-      <a href="https://www.linkedin.com/in/lazzie-munetsi" target="_top">Flicker Application</a>
+      <a href="https://www.linkedin.com/in/lazzie-munetsi" target="_top">QuarantineMe Zimbabwe</a>
   </p>
 </div>

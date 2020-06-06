@@ -5664,11 +5664,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USER\\source\\repos\\FlickerProject\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\USER\\source\\repos\\QuarantineMe\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\USER\\source\\repos\\FlickerProject\\API\\API.csproj",
+      "projectPath": "C:\\Users\\USER\\source\\repos\\QuarantineMe\\API\\API.csproj",
       "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\USER\\source\\repos\\FlickerProject\\API\\obj\\",
+      "outputPath": "C:\\Users\\USER\\source\\repos\\QuarantineMe\\API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -5689,11 +5689,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\BusinessLayer\\BusinessLayer.csproj": {
-              "projectPath": "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\BusinessLayer\\BusinessLayer.csproj"
+            "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\BusinessLayer\\BusinessLayer.csproj": {
+              "projectPath": "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\BusinessLayer\\BusinessLayer.csproj"
             },
-            "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\DataLayer\\DataLayer.csproj": {
-              "projectPath": "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\DataLayer\\DataLayer.csproj"
+            "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\DataLayer\\DataLayer.csproj": {
+              "projectPath": "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\DataLayer\\DataLayer.csproj"
             }
           }
         }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\BusinessLayer\\BusinessLayer.csproj": {}
+    "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\BusinessLayer\\BusinessLayer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\BusinessLayer\\BusinessLayer.csproj": {
+    "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\BusinessLayer\\BusinessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\BusinessLayer\\BusinessLayer.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\BusinessLayer\\BusinessLayer.csproj",
         "projectName": "BusinessLayer",
-        "projectPath": "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\BusinessLayer\\BusinessLayer.csproj",
+        "projectPath": "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\BusinessLayer\\BusinessLayer.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\BusinessLayer\\obj\\",
+        "outputPath": "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\BusinessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -32,8 +32,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\DataLayer\\DataLayer.csproj": {
-                "projectPath": "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\DataLayer\\DataLayer.csproj"
+              "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\DataLayer\\DataLayer.csproj": {
+                "projectPath": "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\DataLayer\\DataLayer.csproj"
               }
             }
           }
@@ -79,14 +79,14 @@
         }
       }
     },
-    "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\DataLayer\\DataLayer.csproj": {
+    "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\DataLayer\\DataLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\DataLayer\\DataLayer.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\DataLayer\\DataLayer.csproj",
         "projectName": "DataLayer",
-        "projectPath": "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\DataLayer\\DataLayer.csproj",
+        "projectPath": "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\DataLayer\\DataLayer.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USER\\source\\repos\\FlickerProject\\References\\DataLayer\\obj\\",
+        "outputPath": "C:\\Users\\USER\\source\\repos\\QuarantineMe\\References\\DataLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
